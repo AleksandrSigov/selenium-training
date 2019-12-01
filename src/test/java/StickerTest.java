@@ -10,7 +10,7 @@ public class StickerTest extends BaseTest {
     @Test
     public void testInstance() {
         driver.get("http://localhost/litecart/en/");
-        List<WebElement> elements = driver.findElements(By.className("image-wrapper"));
+        List<WebElement> elements = driver.findElements(By.className("product"));
         for (WebElement e : elements) {
             Assert.assertTrue(e.findElements(By.className("sticker")).size() == 1);
         }
