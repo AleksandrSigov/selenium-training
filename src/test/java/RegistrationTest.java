@@ -4,14 +4,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Random;
+
 public class RegistrationTest extends BaseTest {
 
+    Random random = new Random();
+    int rNumber = random.nextInt(100);
     String name = "Kek";
     String lastName = "Kekov";
     String address = "Kek avenue";
     String postCode = "05588";
     String city = "Alabama";
-    String email = "kek1sda22@kekmail.com";
+    String email = "kek" + rNumber + "@kekmail.com";
     String phone = "+79998887744";
     String password = "12345678";
 
