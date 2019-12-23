@@ -11,38 +11,18 @@ public class ShoppingCartTest extends BaseTest {
 
     @Test
     public void shoppingCart() {
-        // 1 товар
-        driver.get("http://localhost/litecart");
-        wait(3);
-        driver.findElements(By.cssSelector("div#box-campaigns li")).get(0).click();
-        Select selectProduct = new Select(driver.findElement(By.name("options[Size]")));
-        selectProduct.selectByValue("Small");
-        wait(1);
-        driver.findElement(By.cssSelector("button[name='add_cart_product']")).click();
-        wait(3);
-        Assert.assertEquals(driver.findElement(By.cssSelector("div#cart span.quantity")).getText(), "1");
 
-        // 2 товар
-        driver.get("http://localhost/litecart");
-        wait(3);
-        driver.findElements(By.cssSelector("div#box-campaigns li")).get(0).click();
-        Select selectProduct2 = new Select(driver.findElement(By.name("options[Size]")));
-        selectProduct2.selectByValue("Small");
-        wait(1);
-        driver.findElement(By.cssSelector("button[name='add_cart_product']")).click();
-        wait(3);
-        Assert.assertEquals(driver.findElement(By.cssSelector("div#cart span.quantity")).getText(), "2");
-
-        // 3 товар
-        driver.get("http://localhost/litecart");
-        wait(3);
-        driver.findElements(By.cssSelector("div#box-campaigns li")).get(0).click();
-        Select selectProduct3 = new Select(driver.findElement(By.name("options[Size]")));
-        selectProduct3.selectByValue("Small");
-        wait(1);
-        driver.findElement(By.cssSelector("button[name='add_cart_product']")).click();
-        wait(3);
-        Assert.assertEquals(driver.findElement(By.cssSelector("div#cart span.quantity")).getText(), "3");
+        for (int i = 1; i < 4 ; i++) {
+            driver.get("http://localhost/litecart");
+            wait(3);
+            driver.findElements(By.cssSelector("div#box-campaigns li")).get(0).click();
+            Select selectProduct = new Select(driver.findElement(By.name("options[Size]")));
+            selectProduct.selectByValue("Small");
+            wait(1);
+            driver.findElement(By.cssSelector("button[name='add_cart_product']")).click();
+            wait(3);
+            Assert.assertEquals(driver.findElement(By.cssSelector("div#cart span.quantity")).getText(), String.valueOf(i));
+        }
 
         // корзина
         driver.findElement(By.cssSelector("div#cart a.link")).click();
@@ -51,9 +31,8 @@ public class ShoppingCartTest extends BaseTest {
         wait.until(visibilityOf(tableElement));
         while (driver.findElements(By.cssSelector("[name=remove_cart_item]")).size() != 0) {
             driver.findElement(By.cssSelector("[name=remove_cart_item]")).click();
-            wait(3);
+            wait.until(stalenessOf(tableElement));
         }
-        wait.until(stalenessOf(tableElement));
         Assert.assertTrue(driver.findElement(By.tagName("p")).getText().contains("There are no items in your cart."));
     }
 }
