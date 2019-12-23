@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
@@ -51,5 +52,28 @@ public class BaseTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean newWindow(WebDriver driver, int timeout){
+        boolean bool = false;
+        int count = 0;
+        while(!bool) {
+            try {
+                Set<String> windows = driver.getWindowHandles();
+                if(windows.size() > 1) {
+                    bool = true;
+                    return bool;
+                }
+                Thread.sleep(1000);
+                count++;
+                if(count > timeout){
+                    return bool;
+                }
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
+                return false;
+            }
+        }
+        return bool;
     }
 }

@@ -21,6 +21,7 @@ public class NewWindowTest extends BaseTest {
             String originalWindow = driver.getWindowHandle();
             Set<String> oldWindows = driver.getWindowHandles();
             windowElement.click();
+            newWindow(driver, 5);
             Set<String> newWindows = driver.getWindowHandles();
             newWindows.removeAll(oldWindows);
             String newWindow = newWindows.iterator().next();
